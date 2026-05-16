@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Music Stack API",
+    "description": "Especificación completa para el catálogo musical y sistema de roles.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor local de Next.js"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Registrar usuario",
+        "description": "Crea una cuenta con rol 'usuario' por defecto.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre", "correo", "contrasena"],
+                "properties": {
+                  "nombre": { "type": "string", "example": "UserMusic" },
+                  "correo": { "type": "string", "format": "email", "example": "user@music.com" },
+                  "contrasena": { "type": "string", "format": "password", "example": "Pass123!" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Usuario registrado." }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Iniciar Sesión",
+        "description": "Ingreso con correo y contraseña.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["correo", "contrasena"],
+                "properties": {
+                  "correo": { "type": "string", "format": "email", "example": "admin@music.com" },
+                  "contrasena": { "type": "string", "format": "password", "example": "Admin123!" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login correcto." }
+        }
+      }
+    },
+    "/canciones": {
+      "get": {
+        "summary": "Listar canciones",
+        "responses": {
+          "200": { "description": "Lista de canciones." }
+        }
+      },
+      "post": {
+        "summary": "Crear canción (Solo Admin)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Cancion" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Creada." }
+        }
+      }
+    },
+    "/artistas": {
+      "get": {
+        "summary": "Listar artistas",
+        "responses": {
+          "200": { "description": "Lista de artistas/grupos." }
+        }
+      },
+      "post": {
+        "summary": "Crear artista o grupo (Solo Admin)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Artista" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Creado." }
+        }
+      }
+    },
+    "/generos": {
+      "get": {
+        "summary": "Listar géneros",
+        "responses": {
+          "200": { "description": "Lista de géneros." }
+        }
+      },
+      "post": {
+        "summary": "Crear género (Solo Admin)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Genero" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Creado." }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cancion": {
+        "type": "object",
+        "required": ["nombre", "artista", "genero", "anio"],
+        "properties": {
+          "nombre": { "type": "string", "example": "In the End" },
+          "artista": { "type": "string", "description": "ID del Artista en MongoDB", "example": "60c72b2f9b1d8b2bad7fff11" },
+          "genero": { "type": "string", "description": "ID del Género en MongoDB", "example": "60c72b2f9b1d8b2bad7fff22" },
+          "anio": { "type": "integer", "example": 2000 },
+          "descripcion": { "type": "string", "example": "Canción emblemática de Nu Metal." }
+        }
+      },
+      "Artista": {
+        "type": "object",
+        "required": ["nombre", "esGrupo", "generoMusical", "biografia"],
+        "properties": {
+          "nombre": { "type": "string", "example": "Linkin Park" },
+          "esGrupo": { "type": "boolean", "example": true, "description": "Si es true, ocultar edad y sexo en Frontend." },
+          "edad": { "type": "integer", "example": null, "description": "Solo si esGrupo es false" },
+          "sexo": { "type": "string", "example": null, "description": "Solo si esGrupo es false" },
+          "generoMusical": { "type": "string", "description": "ID del Género en MongoDB", "example": "60c72b2f9b1d8b2bad7fff22" },
+          "biografia": { "type": "string", "example": "Banda estadounidense formada en 1996." }
+        }
+      },
+      "Genero": {
+        "type": "object",
+        "required": ["nombre", "descripcion"],
+        "properties": {
+          "nombre": { "type": "string", "example": "Rock" },
+          "descripcion": { "type": "string", "example": "Género musical definido por la guitarra eléctrica." }
+        }
+      }
+    }
+  }
+}
