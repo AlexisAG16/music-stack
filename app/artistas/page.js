@@ -234,8 +234,8 @@ export default function ArtistasPage() {
     const vistaPrevia = normalizarUrlImagen(form.imagen) || form.imagenActual;
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-        <form onSubmit={guardar} className="max-h-[90vh] w-full max-w-3xl overflow-auto rounded-lg bg-white p-6 shadow-xl">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+        <form onSubmit={guardar} className="max-h-[90vh] w-[95%] max-w-3xl overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
           <h2 className="text-xl font-semibold">{titulo}</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             <input value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} className="rounded-md border px-3 py-2 text-sm" placeholder="Nombre" />
@@ -338,7 +338,7 @@ export default function ArtistasPage() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
       <Navbar />
-      <main className="mx-auto w-full max-w-7xl px-5 py-8">
+      <main className="mx-auto w-full max-w-7xl p-4 md:p-8">
         <section className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">Artistas</h1>
@@ -392,7 +392,7 @@ export default function ArtistasPage() {
 
         {mensaje && <p className="mb-5 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-900">{mensaje}</p>}
         {cargando ? <p className="py-10 text-center text-sm text-zinc-500">Cargando artistas...</p> : (
-          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {listaFiltrada.map((a) => (
               <article key={a._id} onClick={() => setDetalle(a)} className="cursor-pointer rounded-lg border border-zinc-200 bg-white p-5 transition hover:border-emerald-300 hover:shadow-sm">
                 <h2 className="text-2xl font-semibold">{a.nombre}</h2>
@@ -419,8 +419,8 @@ export default function ArtistasPage() {
         {esAdmin && modalCrear && renderFormulario(`Crear ${form.esGrupo ? "grupo" : "solista"}`)}
         {esAdmin && modalEditar && renderFormulario(`Editar ${form.esGrupo ? "grupo" : "solista"}`)}
         {detalle && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-            <div className="max-h-[90vh] w-full max-w-2xl overflow-auto rounded-lg bg-white p-6 shadow-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+            <div className="max-h-[90vh] w-[95%] max-w-2xl overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
               <h2 className="text-3xl font-semibold">{detalle.nombre}</h2>
               <img src={detalle.imagen || "https://placehold.co/600x600?text=Artista"} alt={detalle.nombre} className="mt-5 aspect-video w-full rounded-md object-cover" />
               <p className="mt-4 text-zinc-600">Pais: {detalle.pais}</p>

@@ -175,8 +175,8 @@ export default function CancionesPage() {
 
   function renderFormulario({ titulo, onSubmit, textoBoton }) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-        <form onSubmit={onSubmit} className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+        <form onSubmit={onSubmit} className="max-h-[90vh] w-[95%] max-w-2xl overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
           <h2 className="text-xl font-semibold">{titulo}</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             <input value={formulario.nombre || ""} onChange={(e) => setFormulario({ ...formulario, nombre: e.target.value })} className="rounded-md border px-3 py-2 text-sm" placeholder="Nombre" />
@@ -203,7 +203,7 @@ export default function CancionesPage() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
       <Navbar />
-      <main className="mx-auto w-full max-w-7xl px-5 py-8">
+      <main className="mx-auto w-full max-w-7xl p-4 md:p-8">
         <section className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">Canciones</h1>
@@ -232,21 +232,21 @@ export default function CancionesPage() {
                 <article
                   key={cancion._id}
                   onClick={() => setDetalle(cancion)}
-                  className="grid cursor-pointer gap-4 rounded-lg border border-zinc-200 bg-white p-4 transition hover:border-emerald-300 hover:shadow-sm lg:grid-cols-[minmax(180px,1.4fr)_minmax(140px,1fr)_minmax(140px,1fr)_auto]"
+                  className="flex cursor-pointer flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-4 transition hover:border-emerald-300 hover:shadow-sm sm:flex-row sm:flex-wrap sm:items-center lg:flex-nowrap"
                 >
-                  <div className="min-w-0">
+                  <div className="min-w-0 sm:flex-[1.4_1_220px]">
                     <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Cancion</p>
                     <h2 className="truncate text-xl font-semibold">{cancion.nombre}</h2>
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 sm:flex-1">
                     <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Artista</p>
                     <p className="truncate text-sm font-medium text-zinc-700">{cancion.artista?.nombre || "Sin artista"}</p>
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 sm:flex-1">
                     <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Genero</p>
                     <p className="truncate text-sm font-medium text-zinc-700">{cancion.genero?.nombre || "Sin genero"}</p>
                   </div>
-                  <div className="flex items-center justify-between gap-2 lg:justify-end" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end sm:ml-auto" onClick={(e) => e.stopPropagation()}>
                     <button type="button" onClick={() => alternarFavorito(cancion)} className="flex h-10 w-10 items-center justify-center rounded-md border text-lg hover:bg-zinc-100" aria-label="Alternar favorito">
                       {esFavorita ? "★" : "⭐"}
                     </button>
@@ -266,8 +266,8 @@ export default function CancionesPage() {
         {esAdmin && modalCrear && renderFormulario({ titulo: "Crear cancion", onSubmit: crearCancion, textoBoton: "Guardar" })}
 
         {detalle && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-            <div className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+            <div className="max-h-[90vh] w-[95%] max-w-2xl overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
               <h2 className="text-3xl font-semibold">{detalle.nombre}</h2>
               <p className="mt-3 text-zinc-600">Anio: {detalle.anio}</p>
               <p className="mt-2 text-zinc-600">Artista: {detalle.artista?.nombre || "Sin artista"}</p>

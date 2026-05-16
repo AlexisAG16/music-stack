@@ -128,8 +128,8 @@ export default function GenerosPage() {
 
   function renderFormulario({ titulo, onSubmit, textoBoton }) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-        <form onSubmit={onSubmit} className="w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+        <form onSubmit={onSubmit} className="max-h-[90vh] w-[95%] max-w-lg overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
           <h2 className="text-xl font-semibold">{titulo}</h2>
           <input value={formulario.nombre || ""} onChange={(e) => setFormulario({ ...formulario, nombre: e.target.value })} className="mt-5 w-full rounded-md border px-3 py-2 text-sm" placeholder="Nombre" />
           <textarea value={formulario.descripcion || ""} onChange={(e) => setFormulario({ ...formulario, descripcion: e.target.value })} className="mt-3 min-h-28 w-full rounded-md border px-3 py-2 text-sm" placeholder="Descripcion" />
@@ -145,7 +145,7 @@ export default function GenerosPage() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-950">
       <Navbar />
-      <main className="mx-auto w-full max-w-7xl px-5 py-8">
+      <main className="mx-auto w-full max-w-7xl p-4 md:p-8">
         <section className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">Generos</h1>
@@ -175,15 +175,15 @@ export default function GenerosPage() {
               <article
                 key={genero._id}
                 onClick={() => setDetalle(genero)}
-                className="grid cursor-pointer gap-4 rounded-lg border border-zinc-200 bg-white p-4 transition hover:border-emerald-300 hover:shadow-sm lg:grid-cols-[minmax(180px,260px)_1fr_auto]"
+                className="flex cursor-pointer flex-col gap-4 rounded-lg border border-zinc-200 bg-white p-4 transition hover:border-emerald-300 hover:shadow-sm sm:flex-row sm:flex-wrap sm:items-center lg:flex-nowrap"
               >
-                <div className="min-w-0">
+                <div className="min-w-0 sm:w-64">
                   <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Genero</p>
                   <h2 className="truncate text-xl font-semibold">{genero.nombre}</h2>
                 </div>
-                <p className="text-sm leading-6 text-zinc-600 lg:pr-6">{genero.descripcion}</p>
+                <p className="text-sm leading-6 text-zinc-600 sm:flex-1 lg:pr-6">{genero.descripcion}</p>
                 {esAdmin && (
-                  <div className="flex items-center gap-2 lg:justify-end" onClick={(event) => event.stopPropagation()}>
+                  <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end sm:ml-auto" onClick={(event) => event.stopPropagation()}>
                     <button onClick={() => abrirEditar(genero)} className="rounded-md border px-3 py-1.5 text-sm">
                       Editar
                     </button>
@@ -200,8 +200,8 @@ export default function GenerosPage() {
         {esAdmin && modalCrear && renderFormulario({ titulo: "Crear genero", onSubmit: crearGenero, textoBoton: "Guardar" })}
 
         {detalle && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5">
-            <div className="w-full max-w-xl rounded-lg bg-white p-6 shadow-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 py-4">
+            <div className="max-h-[90vh] w-[95%] max-w-xl overflow-auto rounded-lg bg-white p-4 shadow-xl md:w-full md:p-6">
               <h2 className="text-3xl font-semibold">{detalle.nombre}</h2>
               <p className="mt-4 leading-7 text-zinc-600">{detalle.descripcion}</p>
               <p className="mt-4 text-xs text-zinc-400">ID: {detalle._id}</p>
